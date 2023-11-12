@@ -27,8 +27,8 @@ function App() {
     barChart: [],
   });
 
-  const onChangeMonth = (e) => {
-    setPage(1);
+  const onChangeMonth = async (e) => {
+    await setPage(1);
     setSelectedMonth(e.target.value);
   };
 
@@ -36,9 +36,9 @@ function App() {
     setSearchText(e.target.value);
   };
 
-  const onKeyDownSearch = (e) => {
+  const onKeyDownSearch = async (e) => {
     if (e.key === "Enter") {
-      setPage(1);
+      await setPage(1);
       getTransactionData();
     }
   };
