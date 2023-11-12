@@ -51,7 +51,7 @@ function App() {
       apiStatus: apiStatusConstants.inProgress,
     }));
     const offset = (page - 1) * limit;
-    const apiUrl = `http://localhost:3004/combined-response?month=${selectedMonth}&s_query=${searchText}&limit=${limit}&offset=${offset}`;
+    const apiUrl = `https://roxiler-systems-assignment.onrender.com/combined-response?month=${selectedMonth}&s_query=${searchText}&limit=${limit}&offset=${offset}`;
     const response = await fetch(apiUrl);
 
     if (response.ok) {
