@@ -51,7 +51,7 @@ const createTable = async () => {
 app.get("/initialize-database", async (req, res) => {
   const url = "https://s3.amazonaws.com/roxiler.com/product_transaction.json";
   const response = await axios.get(url);
-  const transactions = await response.json();
+  const transactions = await response.data;
   for (const transaction of transactions) {
     const insertQuery = `INSERT OR IGNORE INTO transactions (id, title, price, description, category, image, sold, dateOfSale)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
@@ -176,23 +176,23 @@ app.get("/combined-response", async (req, res) => {
   const initializeResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/initialize-database`
   );
-  const initializeResponseData = await initializeResponse.json();
+  const initializeResponseData = await initializeResponse.data;
   const listTransactionsResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/transactions?month=${month}&s_query=${s_query}&limit=${limit}&offset=${offset}`
   );
-  const listTransactionsResponseData = await listTransactionsResponse.json();
+  const listTransactionsResponseData = await listTransactionsResponse.data;
   const statisticsResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/statistics?month=${month}`
   );
-  const statisticsResponseData = await statisticsResponse.json();
+  const statisticsResponseData = await statisticsResponse.data;
   const barChartResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/bar-chart?month=${month}`
   );
-  const barChartResponseData = await barChartResponse.json();
+  const barChartResponseData = await barChartResponse.data;
   const pieChartResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/pie-chart?month=${month}`
   );
-  const pieChartResponseData = await pieChartResponse.json();
+  const pieChartResponseData = await pieChartResponse.data;
 
   const combinedResponse = {
     initialize: initializeResponseData,
