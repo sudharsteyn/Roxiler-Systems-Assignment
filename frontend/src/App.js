@@ -28,6 +28,7 @@ function App() {
   });
 
   const onChangeMonth = (e) => {
+    setPage(1);
     setSelectedMonth(e.target.value);
   };
 
@@ -37,6 +38,7 @@ function App() {
 
   const onKeyDownSearch = (e) => {
     if (e.key === "Enter") {
+      setPage(1);
       getTransactionData();
     }
   };
@@ -46,7 +48,6 @@ function App() {
   }, [selectedMonth, page]);
 
   const getTransactionData = async () => {
-    setPage(1);
     setApiData((prevData) => ({
       ...prevData,
       apiStatus: apiStatusConstants.inProgress,
