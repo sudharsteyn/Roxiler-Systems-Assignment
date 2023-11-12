@@ -1,8 +1,8 @@
 const express = require("express");
 const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
+const axios = require("axios");
 const cors = require("cors");
-const fetch = require("node-fetch");
 const path = require("path");
 
 const app = express();
@@ -12,6 +12,7 @@ app.use(express.json());
 const port = 3004;
 
 const dbPath = path.join(__dirname, "transactionsData.db");
+
 let db = null;
 
 const initializeDBAndServer = async () => {
@@ -49,7 +50,7 @@ const createTable = async () => {
 
 app.get("/initialize-database", async (req, res) => {
   const url = "https://s3.amazonaws.com/roxiler.com/product_transaction.json";
-  const response = await fetch(url);
+  const response = await axios.get(url);
   const transactions = await response.json();
   for (const transaction of transactions) {
     const insertQuery = `INSERT OR IGNORE INTO transactions (id, title, price, description, category, image, sold, dateOfSale)
@@ -172,23 +173,23 @@ app.get("/pie-chart", async (req, res) => {
 app.get("/combined-response", async (req, res) => {
   const { month = "", s_query = "", limit = 10, offset = 0 } = req.query;
 
-  const initializeResponse = await fetch(
+  const initializeResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/initialize-database`
   );
   const initializeResponseData = await initializeResponse.json();
-  const listTransactionsResponse = await fetch(
+  const listTransactionsResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/transactions?month=${month}&s_query=${s_query}&limit=${limit}&offset=${offset}`
   );
   const listTransactionsResponseData = await listTransactionsResponse.json();
-  const statisticsResponse = await fetch(
+  const statisticsResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/statistics?month=${month}`
   );
   const statisticsResponseData = await statisticsResponse.json();
-  const barChartResponse = await fetch(
+  const barChartResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/bar-chart?month=${month}`
   );
   const barChartResponseData = await barChartResponse.json();
-  const pieChartResponse = await fetch(
+  const pieChartResponse = await axios.get(
     `https://roxiler-systems-assignment.onrender.com/pie-chart?month=${month}`
   );
   const pieChartResponseData = await pieChartResponse.json();
