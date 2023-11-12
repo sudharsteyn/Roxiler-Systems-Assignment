@@ -172,23 +172,23 @@ app.get("/combined-response", async (req, res) => {
   const { month = "", s_query = "", limit = 10, offset = 0 } = req.query;
 
   const initializeResponse = await fetch(
-    `http://localhost:${port}/initialize-database`
+    `https://roxiler-systems-assignment.onrender.com/initialize-database`
   );
   const initializeResponseData = await initializeResponse.json();
   const listTransactionsResponse = await fetch(
-    `http://localhost:${port}/transactions?month=${month}&s_query=${s_query}&limit=${limit}&offset=${offset}`
+    `https://roxiler-systems-assignment.onrender.com/transactions?month=${month}&s_query=${s_query}&limit=${limit}&offset=${offset}`
   );
   const listTransactionsResponseData = await listTransactionsResponse.json();
   const statisticsResponse = await fetch(
-    `http://localhost:${port}/statistics?month=${month}`
+    `https://roxiler-systems-assignment.onrender.com/statistics?month=${month}`
   );
   const statisticsResponseData = await statisticsResponse.json();
   const barChartResponse = await fetch(
-    `http://localhost:${port}/bar-chart?month=${month}`
+    `https://roxiler-systems-assignment.onrender.com/bar-chart?month=${month}`
   );
   const barChartResponseData = await barChartResponse.json();
   const pieChartResponse = await fetch(
-    `http://localhost:${port}/pie-chart?month=${month}`
+    `https://roxiler-systems-assignment.onrender.com/pie-chart?month=${month}`
   );
   const pieChartResponseData = await pieChartResponse.json();
 
