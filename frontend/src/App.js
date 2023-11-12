@@ -46,6 +46,7 @@ function App() {
   }, [selectedMonth, page]);
 
   const getTransactionData = async () => {
+    setPage(1);
     setApiData((prevData) => ({
       ...prevData,
       apiStatus: apiStatusConstants.inProgress,
